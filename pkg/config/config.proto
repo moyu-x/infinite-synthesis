@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option go_package = "github.com/moyu-x/infinite-synthesis/internal/config";
+
+package github.moyu_x.infinite_synthesis.config;
+
+
+message Bootstrap {
+  string name = 1;
+  Server server = 2;
+}
+
+message Server {
+  message  Http {
+    string  host = 1;
+    int64 port = 2;
+    int64 timeout = 3;
+  }
+
+  Http http = 1;
+
+}

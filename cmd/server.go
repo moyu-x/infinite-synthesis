@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/moyu-x/infinite-synthesis/internal/command/server"
-
 	"github.com/spf13/cobra"
+
+	"github.com/moyu-x/infinite-synthesis/internal/command/server"
 )
 
 var config string

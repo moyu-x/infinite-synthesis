@@ -42,3 +42,7 @@ tasks:
     desc: Lint the code
     cmds:
       - golangci-lint run --timeout 5m
+  protoc:
+    desc: Generate the proto files
+    cmds:
+      - protoc --proto_path=.  --go_out=paths=source_relative:.  pkg/config/*.proto

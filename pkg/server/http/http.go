@@ -2,21 +2,76 @@ package http
 
 import (
 	"context"
+	"errors"
+	"strconv"
+	"time"
+
+	"github.com/bytedance/sonic"
+	"github.com/gofiber/fiber/v3"
+
+	"github.com/moyu-x/infinite-synthesis/pkg/config"
 )
 
 type Server struct {
+	*fiber.App
+	c *config.Bootstrap
 }
 
-func NewServer() *Server {
-	return &Server{}
+func NewServer(c *config.Bootstrap) *Server {
+	return &Server{
+		c: c,
+	}
 }
 
 func (s *Server) Start(ctx context.Context) error {
-	//TODO implement me
-	panic("implement me")
+	s.newFiber()
+
+	listenConfig := fiber.ListenConfig{
+		GracefulContext: ctx,
+	}
+
+	// s.logger.Info().Msg("Start http server ...")
+	go func() {
+		if err := s.App.Listen(s.c.Server.Http.Host+":"+strconv.FormatInt(s.c.Server.Http.Port, 10), listenConfig); err != nil {
+			panic("init Server error")
+		}
+	}()
+	// s.logger.Info().Msg("Start http server successfully...")
+	return nil
 }
 
 func (s *Server) Stop(ctx context.Context) error {
-	//TODO implement me
-	panic("implement me")
+	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
+	defer cancel()
+	if err := s.App.ShutdownWithContext(ctx); err != nil {
+		return errors.New("stop fiber server error")
+	}
+
+	return nil
+}
+
+func (s *Server) newFiber() {
+	fc := fiber.Config{
+		JSONEncoder: sonic.Marshal,
+		JSONDecoder: sonic.Unmarshal,
+		AppName:     s.c.Name,
+		ReadTimeout: time.Duration(s.c.Server.Http.Timeout) * time.Second,
+		// StructValidator: &Validator{},
+	}
+	s.App = fiber.New(fc)
+	//app.Use(recover.New(recover.Config{
+	//	EnableStackTrace: true,
+	//}))
+	//app.Use(fiberzerolog.New(fiberzerolog.Config{
+	//	Logger: logger,
+	//}))
+	//app.Use(pprof.New(pprof.Config{Prefix: "/system/"}))
+
+	//app.Use(recover.New(recover.Config{
+	//	EnableStackTrace: true,
+	//}))
+	//app.Use(fiberzerolog.New(fiberzerolog.Config{
+	//	Logger: logger,
+	//}))
+	//app.Use(pprof.New(pprof.Config{Prefix: "/system/"}))
 }

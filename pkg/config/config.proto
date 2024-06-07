@@ -8,6 +8,7 @@ package github.moyu_x.infinite_synthesis.config;
 message Bootstrap {
   string name = 1;
   Server server = 2;
+  Logger logger = 3;
 }
 
 message Server {
@@ -19,4 +20,8 @@ message Server {
 
   Http http = 1;
 
+}
+
+message Logger {
+  string level = 1;
 }

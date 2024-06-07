@@ -9,6 +9,7 @@ require (
 	github.com/knadh/koanf/parsers/toml v0.1.0
 	github.com/knadh/koanf/providers/file v0.1.0
 	github.com/knadh/koanf/v2 v2.1.1
+	github.com/rs/zerolog v1.33.0
 	github.com/spf13/cobra v1.8.0
 	google.golang.org/protobuf v1.34.1
 )

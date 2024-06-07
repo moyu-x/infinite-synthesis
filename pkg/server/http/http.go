@@ -8,6 +8,7 @@ import (
 
 	"github.com/bytedance/sonic"
 	"github.com/gofiber/fiber/v3"
+	"github.com/rs/zerolog"
 
 	"github.com/moyu-x/infinite-synthesis/pkg/config"
 )
@@ -15,11 +16,13 @@ import (
 type Server struct {
 	*fiber.App
 	c *config.Bootstrap
+	l *zerolog.Logger
 }
 
-func NewServer(c *config.Bootstrap) *Server {
+func NewServer(c *config.Bootstrap, l *zerolog.Logger) *Server {
 	return &Server{
 		c: c,
+		l: l,
 	}
 }
 

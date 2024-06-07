@@ -9,6 +9,7 @@ package server
 import (
 	"github.com/google/wire"
 	"github.com/moyu-x/infinite-synthesis/pkg/config"
+	"github.com/moyu-x/infinite-synthesis/pkg/log"
 	"github.com/moyu-x/infinite-synthesis/pkg/server/app"
 	"github.com/moyu-x/infinite-synthesis/pkg/server/http"
 )
@@ -16,11 +17,12 @@ import (
 // Injectors from wire.go:
 
 func initServer(c *config.Bootstrap) *app.App {
-	server := http.NewServer(c)
+	logger := log.NewLogger(c)
+	server := http.NewServer(c, logger)
 	appApp := app.NewApp(server)
 	return appApp
 }
 
 // wire.go:
 
-var pkgProviderSet = wire.NewSet(http.NewServer, app.NewApp)
+var pkgProviderSet = wire.NewSet(http.NewServer, app.NewApp, log.NewLogger)

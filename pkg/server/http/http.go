@@ -58,11 +58,11 @@ func (s *Server) Stop(ctx context.Context) error {
 
 func (s *Server) newFiber() {
 	fc := fiber.Config{
-		JSONEncoder: sonic.Marshal,
-		JSONDecoder: sonic.Unmarshal,
-		AppName:     s.c.Name,
-		ReadTimeout: time.Duration(s.c.Server.Http.Timeout) * time.Second,
-		// StructValidator: &Validator{},
+		JSONEncoder:     sonic.Marshal,
+		JSONDecoder:     sonic.Unmarshal,
+		AppName:         s.c.Name,
+		ReadTimeout:     time.Duration(s.c.Server.Http.Timeout) * time.Second,
+		StructValidator: &Validator{},
 	}
 	s.App = fiber.New(fc)
 	s.App.Use(fiberzerolog.New(fiberzerolog.Config{

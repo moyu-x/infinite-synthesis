@@ -8,6 +8,8 @@ import (
 
 	"github.com/bytedance/sonic"
 	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/pprof"
+	"github.com/gofiber/fiber/v3/middleware/recover"
 	"github.com/rs/zerolog"
 
 	"github.com/moyu-x/infinite-synthesis/pkg/config"
@@ -63,19 +65,12 @@ func (s *Server) newFiber() {
 		// StructValidator: &Validator{},
 	}
 	s.App = fiber.New(fc)
-	//app.Use(recover.New(recover.Config{
-	//	EnableStackTrace: true,
-	//}))
 	s.App.Use(fiberzerolog.New(fiberzerolog.Config{
 		Logger: s.l,
 	}))
-	// app.Use(pprof.New(pprof.Config{Prefix: "/system/"}))
+	s.App.Use(pprof.New(pprof.Config{Prefix: "/system/"}))
 
-	//app.Use(recover.New(recover.Config{
-	//	EnableStackTrace: true,
-	//}))
-	//app.Use(fiberzerolog.New(fiberzerolog.Config{
-	//	Logger: logger,
-	//}))
-	//app.Use(pprof.New(pprof.Config{Prefix: "/system/"}))
+	s.App.Use(recover.New(recover.Config{
+		EnableStackTrace: true,
+	}))
 }

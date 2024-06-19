@@ -11,6 +11,7 @@ import (
 	"github.com/rs/zerolog"
 
 	"github.com/moyu-x/infinite-synthesis/pkg/config"
+	"github.com/moyu-x/infinite-synthesis/third_party/fiberzerolog"
 )
 
 type Server struct {
@@ -65,10 +66,10 @@ func (s *Server) newFiber() {
 	//app.Use(recover.New(recover.Config{
 	//	EnableStackTrace: true,
 	//}))
-	//app.Use(fiberzerolog.New(fiberzerolog.Config{
-	//	Logger: logger,
-	//}))
-	//app.Use(pprof.New(pprof.Config{Prefix: "/system/"}))
+	s.App.Use(fiberzerolog.New(fiberzerolog.Config{
+		Logger: s.l,
+	}))
+	// app.Use(pprof.New(pprof.Config{Prefix: "/system/"}))
 
 	//app.Use(recover.New(recover.Config{
 	//	EnableStackTrace: true,

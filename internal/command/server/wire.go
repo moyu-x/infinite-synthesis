@@ -5,6 +5,7 @@ package server
 
 import (
 	"github.com/google/wire"
+	"github.com/moyu-x/infinite-synthesis/pkg/gorm"
 
 	"github.com/moyu-x/infinite-synthesis/pkg/config"
 	"github.com/moyu-x/infinite-synthesis/pkg/log"
@@ -12,7 +13,7 @@ import (
 	"github.com/moyu-x/infinite-synthesis/pkg/server/http"
 )
 
-var pkgProviderSet = wire.NewSet(http.NewServer, app.NewApp, log.NewLogger)
+var pkgProviderSet = wire.NewSet(http.NewServer, app.NewApp, log.NewLogger, gorm.NewGORM)
 
 func initServer(c *config.Bootstrap) *app.App {
 	panic(wire.Build(pkgProviderSet))

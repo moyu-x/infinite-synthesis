@@ -36,13 +36,11 @@ func (s *Server) Start(ctx context.Context) error {
 		GracefulContext: ctx,
 	}
 
-	// s.logger.Info().Msg("Start http server ...")
 	go func() {
 		if err := s.App.Listen(s.c.Server.Http.Host+":"+strconv.FormatInt(s.c.Server.Http.Port, 10), listenConfig); err != nil {
 			panic("init Server error")
 		}
 	}()
-	// s.logger.Info().Msg("Start http server successfully...")
 	return nil
 }
 
@@ -60,7 +58,7 @@ func (s *Server) newFiber() {
 	fc := fiber.Config{
 		JSONEncoder:     sonic.Marshal,
 		JSONDecoder:     sonic.Unmarshal,
-		AppName:         s.c.Name,
+		AppName:         s.c.Server.Name,
 		ReadTimeout:     time.Duration(s.c.Server.Http.Timeout) * time.Second,
 		StructValidator: &Validator{},
 	}

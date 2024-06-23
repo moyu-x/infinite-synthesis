@@ -1,6 +1,13 @@
+[server]
+name = "infinite-synthesis"
+
 [server.http]
 host = "0.0.0.0"
 port = 8080
 
 [logger]
 level = "debug"
+
+[database]
+type="sqlite3"
+uri="D:\\test.db"

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option go_package = "github.com/moyu-x/infinite-synthesis/api";
+
+package github.moyu_x.infinite_synthesis.api;
+
+import "google/api/annotations.proto";
+
+service ConfigService {
+  rpc GetConfigs(GetConfigReq) returns (GetConfigResp) {
+    option (google.api.http) = {
+      get: "/v1/config"
+    };
+  }
+}
+
+message GetConfigReq {
+  // @inject_tag: required
+  string name = 1;
+}
+
+message GetConfigResp{
+  string name = 1;
+  string value =2;
+}

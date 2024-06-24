@@ -66,9 +66,10 @@ func (s *Server) newFiber() {
 	s.App.Use(fiberzerolog.New(fiberzerolog.Config{
 		Logger: s.l,
 	}))
-	s.App.Use(pprof.New(pprof.Config{Prefix: "/system/"}))
 
 	s.App.Use(recover.New(recover.Config{
 		EnableStackTrace: true,
 	}))
+
+	s.App.Use(pprof.New(pprof.Config{Prefix: "/system/"}))
 }

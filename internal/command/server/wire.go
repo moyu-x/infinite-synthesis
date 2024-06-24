@@ -5,9 +5,9 @@ package server
 
 import (
 	"github.com/google/wire"
-	"github.com/moyu-x/infinite-synthesis/pkg/gorm"
 
 	"github.com/moyu-x/infinite-synthesis/pkg/config"
+	"github.com/moyu-x/infinite-synthesis/pkg/gorm"
 	"github.com/moyu-x/infinite-synthesis/pkg/log"
 	"github.com/moyu-x/infinite-synthesis/pkg/server/app"
 	"github.com/moyu-x/infinite-synthesis/pkg/server/http"

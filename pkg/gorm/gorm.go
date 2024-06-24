@@ -23,7 +23,7 @@ func newSqlite3(c *config.Bootstrap, l *zerolog.Logger) *gorm.DB {
 		Logger: gormZerolog.NewWithLogger(l),
 	})
 	if err != nil {
-		panic("failed to connect database")
+		panic("failed to connect sqlite database")
 	}
 	return db
 }

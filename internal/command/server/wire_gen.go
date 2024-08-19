@@ -10,20 +10,18 @@ import (
 	"github.com/google/wire"
 	"github.com/moyu-x/infinite-synthesis/pkg/config"
 	"github.com/moyu-x/infinite-synthesis/pkg/gorm"
-	"github.com/moyu-x/infinite-synthesis/pkg/log"
 	"github.com/moyu-x/infinite-synthesis/pkg/server/app"
-	"github.com/moyu-x/infinite-synthesis/pkg/server/http"
+	"github.com/moyu-x/infinite-synthesis/pkg/server/http/fiber"
 )
 
 // Injectors from wire.go:
 
 func initServer(c *config.Bootstrap) *app.App {
-	logger := log.NewLogger(c)
-	server := http.NewServer(c, logger)
+	server := fiber.NewServer(c)
 	appApp := app.NewApp(server)
 	return appApp
 }
 
 // wire.go:
 
-var pkgProviderSet = wire.NewSet(http.NewServer, app.NewApp, log.NewLogger, gorm.NewGORM)
+var pkgProviderSet = wire.NewSet(fiber.NewServer, app.NewApp, gorm.NewGORM)

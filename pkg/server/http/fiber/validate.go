@@ -1,4 +1,4 @@
-package http
+package fiber
 
 import (
 	"github.com/gookit/validate"
@@ -6,11 +6,7 @@ import (
 
 type Validator struct{}
 
-func (v *Validator) Engine() any {
-	return ""
-}
-
-func (v *Validator) ValidateStruct(out any) error {
+func (v *Validator) Validate(out any) error {
 	c := validate.Struct(out)
 
 	if c.Validate() {

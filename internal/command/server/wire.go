@@ -8,12 +8,11 @@ import (
 
 	"github.com/moyu-x/infinite-synthesis/pkg/config"
 	"github.com/moyu-x/infinite-synthesis/pkg/gorm"
-	"github.com/moyu-x/infinite-synthesis/pkg/log"
 	"github.com/moyu-x/infinite-synthesis/pkg/server/app"
-	"github.com/moyu-x/infinite-synthesis/pkg/server/http"
+	"github.com/moyu-x/infinite-synthesis/pkg/server/http/fiber"
 )
 
-var pkgProviderSet = wire.NewSet(http.NewServer, app.NewApp, log.NewLogger, gorm.NewGORM)
+var pkgProviderSet = wire.NewSet(fiber.NewServer, app.NewApp, gorm.NewGORM)
 
 func initServer(c *config.Bootstrap) *app.App {
 	panic(wire.Build(pkgProviderSet))

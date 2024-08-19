@@ -3,14 +3,14 @@ package app
 import (
 	"context"
 
-	"github.com/moyu-x/infinite-synthesis/pkg/server/http"
+	"github.com/moyu-x/infinite-synthesis/pkg/server/http/fiber"
 )
 
 type App struct {
-	h *http.Server
+	h *fiber.Server
 }
 
-func NewApp(h *http.Server) *App {
+func NewApp(h *fiber.Server) *App {
 	return &App{
 		h: h,
 	}

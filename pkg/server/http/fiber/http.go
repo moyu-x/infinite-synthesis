@@ -1,4 +1,4 @@
-package http
+package fiber
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/pprof"
 	"github.com/gofiber/fiber/v3/middleware/recover"
-	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 
 	"github.com/moyu-x/infinite-synthesis/pkg/config"
 	"github.com/moyu-x/infinite-synthesis/third_party/fiberzerolog"
@@ -19,13 +19,11 @@ import (
 type Server struct {
 	*fiber.App
 	c *config.Bootstrap
-	l *zerolog.Logger
 }
 
-func NewServer(c *config.Bootstrap, l *zerolog.Logger) *Server {
+func NewServer(c *config.Bootstrap) *Server {
 	return &Server{
 		c: c,
-		l: l,
 	}
 }
 
@@ -64,7 +62,7 @@ func (s *Server) newFiber() {
 	}
 	s.App = fiber.New(fc)
 	s.App.Use(fiberzerolog.New(fiberzerolog.Config{
-		Logger: s.l,
+		Logger: &log.Logger,
 	}))
 
 	s.App.Use(recover.New(recover.Config{
